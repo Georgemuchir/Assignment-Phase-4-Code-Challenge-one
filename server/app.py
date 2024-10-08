@@ -5,7 +5,7 @@ from flask_restful import Api, Resource
 from models import db, Hero, Power, HeroPower
 import os
 
-# Configuration for database
+# database Configuration 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.getenv("DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
 
@@ -13,11 +13,11 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize database and migration
+# Initialize database /migration
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Setup API
+#  API Setup
 api = Api(app)
 
 @app.route('/')
@@ -89,7 +89,7 @@ class HeroPowerResource(Resource):
         db.session.commit()
         return make_response({'message': 'HeroPower deleted'}, 204)
 
-# Add resources to API
+# Adding resources to API
 api.add_resource(HeroListResource, '/heroes')
 api.add_resource(HeroResource, '/heroes/<int:hero_id>')
 api.add_resource(PowerListResource, '/powers')

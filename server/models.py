@@ -31,7 +31,7 @@ class Power(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     
-    # Relationships and validation
+    #  Validation and relationships 
     hero_powers = relationship('HeroPower', backref='power', cascade="all, delete-orphan")
     heroes = association_proxy('hero_powers', 'hero')
     serialize_rules = ('-hero_powers.power',)
@@ -53,7 +53,7 @@ class HeroPower(db.Model, SerializerMixin):
     hero_id = db.Column(db.Integer, ForeignKey('heroes.id'), nullable=False)
     power_id = db.Column(db.Integer, ForeignKey('powers.id'), nullable=False)
     
-    # Validation and serialization rules
+    # Serialization rules and Validation  
     serialize_rules = ('-hero.hero_powers', '-power.hero_powers')
 
     @validates('strength')
